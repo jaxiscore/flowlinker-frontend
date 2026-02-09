@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowLinker - Pare de Perder Leads Imobiliários</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <!-- HERO -->
+    <section class="hero">
+        <h1>Pare de Perder Leads Imobiliários Fora do Horário</h1>
+        <p class="subtitle">
+            FlowLinker responde, qualifica e entrega leads prontos<br>
+            pro corretor — em menos de 1 minuto, 24h por dia.
+        </p>
+        <div class="proof">
+            <p>✅ Resposta em até 60 segundos</p>
+            <p>✅ Só leads quentes pro corretor</p>
+            <p>✅ Onboarding guiado em 2 minutos</p>
+        </div>
+        <button class="cta" onclick="scrollToPlans()"> Ver Planos </button>
+        <p class="trial-note">🎁 Teste com 20 leads grátis</p>
+    </section>
+
+    <!-- PROBLEMA -->
+    <section class="problem">
+        <h2>Você está perdendo dinheiro todo dia</h2>
+        <div class="pain-points">
+            <div class="pain">
+                <h3>🔥 Lead esfria rápido</h3>
+                <p>Depois de 5 minutos, chance de conversão cai 80%</p>
+            </div>
+            <div class="pain">
+                <h3>💸 Lead caro morre</h3>
+                <p>Você paga R$50+ por lead e perde porque ninguém responde</p>
+            </div>
+            <div class="pain">
+                <h3>😓 Corretor sobrecarregado</h3>
+                <p>Perde tempo com curioso em vez de comprador</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOLUÇÃO -->
+    <section class="solution">
+        <h2>Como Funciona</h2>
+        <div class="steps">
+            <div class="step">
+                <span class="number">1</span>
+                <h3>Lead chega no WhatsApp</h3>
+                <p>Via Meta Ads, Google ou site</p>
+            </div>
+            <div class="step">
+                <span class="number">2</span>
+                <h3>Bot responde na hora</h3>
+                <p>Qualifica: tipo, região, preço, urgência</p>
+            </div>
+            <div class="step">
+                <span class="number">3</span>
+                <h3>Você recebe só lead quente</h3>
+                <p>Cliente pronto para visitar</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PLANOS -->
+    <section class="pricing" id="plans">
+        <h2>Escolha Seu Plano</h2>
+        <div class="plans">
+            <!-- STARTER -->
+            <div class="plan">
+                <h3>Starter</h3>
+                <p class="price">R$ 197<span>/mês</span></p>
+                <ul>
+                    <li>✅ Até 300 leads/mês</li>
+                    <li>✅ 1 número WhatsApp</li>
+                    <li>✅ Qualificação automática</li>
+                    <li>✅ Dashboard básico</li>
+                </ul>
+                <button onclick="checkout('starter')">Começar Teste</button>
+                <p class="trial">20 leads grátis</p>
+            </div>
+
+            <!-- PRO -->
+            <div class="plan featured">
+                <div class="badge">Mais Popular</div>
+                <h3>Pro</h3>
+                <p class="price">R$ 397<span>/mês</span></p>
+                <ul>
+                    <li>✅ Até 1.500 leads/mês</li>
+                    <li>✅ 1 número WhatsApp</li>
+                    <li>✅ Notificação corretor</li>
+                    <li>✅ Dashboard completo</li>
+                    <li>✅ Suporte prioritário</li>
+                </ul>
+                <button onclick="checkout('pro')">Começar Teste</button>
+                <p class="trial">20 leads grátis</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq">
+        <h2>Perguntas Frequentes</h2>
+        <div class="question">
+            <h3>Preciso de número novo?</h3>
+            <p>Sim, recomendamos número dedicado para evitar bloqueios do WhatsApp.</p>
+        </div>
+        <div class="question">
+            <h3>Funciona com Meta Ads?</h3>
+            <p>Sim, recebemos leads de qualquer fonte: Meta, Google, site, OLX.</p>
+        </div>
+        <div class="question">
+            <h3>Posso cancelar quando quiser?</h3>
+            <p>Sim, sem multa, sem burocracia. Cancele direto no painel.</p>
+        </div>
+        <div class="question">
+            <h3>Como funciona o teste de 20 leads?</h3>
+            <p>Você pode testar com até 20 leads reais antes de começar a pagar.</p>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 FlowLinker - Todos os direitos reservados</p>
+        <p><a href="/login.html">Login</a></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - FlowLinker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <h1>FlowLinker</h1>
+            <h2>Login</h2>
+            <form id="loginForm">
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Senha" required>
+                <button type="submit">Entrar</button>
+            </form>
+            <p class="error" id="error" style="display:none; color: red; margin-top: 10px;"></p>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'https://api.flowlinker.io'; // Ajustar conforme necessário
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorEl = document.getElementById('error');
+
+            try {
+                const response = await fetch(`${API_URL}/api/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    errorEl.textContent = error.error || 'Credenciais inválidas';
+                    errorEl.style.display = 'block';
+                    return;
+                }
+
+                const { token } = await response.json();
+                localStorage.setItem('token', token);
+                window.location.href = '/dashboard.html';
+            } catch (error) {
+                errorEl.textContent = 'Erro ao conectar com a API.';
+                errorEl.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>

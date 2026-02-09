@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - FlowLinker</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #f5f5f5; padding: 40px; }
+        .container { max-width: 900px; margin: 0 auto; }
+        .card { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        h1 { margin-bottom: 30px; color: #333; }
+        h2 { margin-bottom: 20px; color: #667eea; }
+        .stat { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #eee; }
+        .stat:last-child { border: none; }
+        .stat-label { font-weight: 600; }
+        .stat-value { font-size: 1.2rem; color: #667eea; font-weight: 700; }
+        .qr-container { text-align: center; }
+        .qr-container img { max-width: 300px; border-radius: 10px; }
+        .logout { background: #e74c3c; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 0.9rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h1>FlowLinker Dashboard</h1>
+            <button class="logout" onclick="logout()">Sair</button>
+        </div>
+
+        <div class="card">
+            <h2>📊 Performance</h2>
+            <div class="stat">
+                <span class="stat-label">Total de leads</span>
+                <span class="stat-value" id="total-leads">-</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">🔥 Hot</span>
+                <span class="stat-value" id="hot-leads">-</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">🟡 Warm</span>
+                <span class="stat-value" id="warm-leads">-</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">❄️ Cold</span>
+                <span class="stat-value" id="cold-leads">-</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">📈 Taxa de classificação</span>
+                <span class="stat-value" id="classification-rate">-</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>💰 Uso do Plano</h2>
+            <div class="stat">
+                <span class="stat-label">Plano</span>
+                <span class="stat-value" id="plan">-</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Leads usados</span>
+                <span class="stat-value" id="leads-used">-</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Limite</span>
+                <span class="stat-value" id="leads-limit">-</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Restantes</span>
+                <span class="stat-value" id="remaining">-</span>
+            </div>
+        </div>
+
+        <div class="card qr-container" id="qr-section" style="display:none;">
+            <h2>📱 Conectar WhatsApp</h2>
+            <p style="margin-bottom: 20px;">Escaneie este QR no WhatsApp:</p>
+            <img id="qr-image" src="" alt="QR Code">
+            <p style="margin-top: 20px; color: #666;">
+                Abra WhatsApp → Ajustes → Dispositivos conectados → Escanear código
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'https://api.flowlinker.io';
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/login.html';
+        }
+
+        fetch(`${API_URL}/api/dashboard`, {
+            headers: { 'Authorization': `Bearer ${token}` }
+        })
+        .then(r => {
+            if (!r.ok) throw new Error('Unauthorized');
+            return r.json();
+        })
+        .then(data => {
+            document.getElementById('plan').textContent = data.plan.toUpperCase();
+            document.getElementById('leads-used').textContent = data.leads_used;
+            document.getElementById('leads-limit').textContent = data.leads_limit;
+            document.getElementById('remaining').textContent = data.remaining;
+            document.getElementById('total-leads').textContent = data.total_leads;
+            document.getElementById('hot-leads').textContent = data.hot_leads;
+            document.getElementById('warm-leads').textContent = data.warm_leads;
+            document.getElementById('cold-leads').textContent = data.cold_leads;
+            document.getElementById('classification-rate').textContent = data.classification_rate_pct + '%';
+
+            if (data.whatsapp_status !== 'connected' && data.qr) {
+                document.getElementById('qr-section').style.display = 'block';
+                document.getElementById('qr-image').src = data.qr;
+            }
+        })
+        .catch(err => {
+            alert('Sessão expirada ou erro ao carregar dados.');
+            window.location.href = '/login.html';
+        });
+
+        function logout() {
+            localStorage.removeItem('token');
+            window.location.href = '/login.html';
+        }
+    </script>
+</body>
+</html>
